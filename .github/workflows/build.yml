@@ -36,4 +36,6 @@ jobs:
           mvn initialize sonar:sonar \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.organization=yvesgab \
-            -Dsonar.projectKey=yvesgab_laboJPA
+            -Dsonar.projectKey=yvesgab_laboJPA \
+            -Dsonar.java.codeCoveragePlugin=jacoco \
+            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/*/jacoco.xml
