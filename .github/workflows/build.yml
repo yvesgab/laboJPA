@@ -28,12 +28,14 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
-        run: mvn -B package -DskipTests --file pom.xml
+        run: mvn -B clean verify --file pom.xml
       - name: Sonar analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
         run: >
-          mvn initialize sonar:sonar \
+          mvn verify sonar:sonar \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.organization=yvesgab \
-            -Dsonar.projectKey=yvesgab_laboJPA
+            -Dsonar.projectKey=yvesgab_laboJPA \
+            -Dsonar.java.codeCoveragePlugin=jacoco \
+            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/*/jacoco.xml
